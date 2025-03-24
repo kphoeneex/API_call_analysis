@@ -14,13 +14,13 @@ def fetch_results(query):
     global request_count,total_count
 
     response=requests.get(url+query,timeout=10)
-    request_count+=1
 
     if response.status_code==429:
         print("Limit Reached,Waiting...")
         time.sleep(60)
         return fetch_results(query)
     
+    request_count+=1
     data=response.json()
     results=data.get("results",[])
     count=data.get("count",0)
@@ -34,7 +34,7 @@ for i in arr:
         results,count=fetch_results(i+j)
         rows.extend(results)
 
-        print(f"Completed {i}{j}, collected {len(rows)} words so far.")
+        print(f"Completed {i}{j},called {request_count}, collected {total_count} words so far.")
 df=pd.DataFrame({"Words":rows})
 df.to_excel("output2.xlsx",index=False)
 print(f"Saved to output2.xlsx. Total words count: {total_count}")
