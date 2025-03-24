@@ -8,7 +8,7 @@ For V3, lowercase alphabets, numbers, as well as a few special characters, were 
 Now that we know what type of strings are present, we can explore other constraints.
 For V1, the number of strings returned per call was limited to 10, and there was a limit of 100 calls per minute.
 For V2, the number of strings returned per call was 12, and there was a limit of 50 calls per minute.
-For V3, the number of strings returned per call was increased to 15, and there was a limit of 50 calls per minute.
+For V3, the number of strings returned per call was increased to 15, and there was a limit of 80 calls per minute.
 
 Other Inferences:
 For V1, there were multiple instances where just running two nested loops was not enough, as the number of strings was frequently outside the set return limit. A third loop had to be initialized, starting from the position where the last string ended. However, this approach increases the complexity of the code by a lot.
