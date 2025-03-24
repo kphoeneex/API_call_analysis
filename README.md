@@ -2,12 +2,16 @@
 The intuition is to start exploring the API by using random strings. First, I tried random lowercase alphabets, then uppercase, then used numbers and special characters.
 
 For V1, only the lowercase alphabets were used in the returned string.
+
 For V2, along with lowercase alphabets, numbers were also present.
+
 For V3, lowercase alphabets, numbers, as well as a few special characters, were present. After exploring further, there were four special characters: ['.', ' ', '+', '-'].
 
 Now that we know what type of strings are present, we can explore other constraints.
 For V1, the number of strings returned per call was limited to 10, and there was a limit of 100 calls per minute.
+
 For V2, the number of strings returned per call was 12, and there was a limit of 50 calls per minute.
+
 For V3, the number of strings returned per call was increased to 15, and there was a limit of 80 calls per minute.
 
 Other Inferences:
