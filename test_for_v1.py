@@ -6,13 +6,13 @@ import os
 
 url="http://35.200.185.69:8000/v1/autocomplete?query="
 rows=[]
-arr=['j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 rate_limit=100
 total_count=0
 request_count=0
+execution_count=0
 
 def fetch_results(query):
-    global request_count,total_count
+    global request_count,total_count,execution_count
     if request_count>=rate_limit:
         print("Limit Reached,Waiting...")
         time.sleep(60)
@@ -25,7 +25,7 @@ def fetch_results(query):
         print("Limit Reached,Waiting...")
         time.sleep(60)
         return fetch_results(query)
-    
+    execution_count+=1
     data=response.json()
     results=data.get("results",[])
     count=data.get("count",0)
@@ -33,7 +33,7 @@ def fetch_results(query):
     return results,count
         
 
-for i in arr:
+for i in string.ascii_lowercase:
     for j in string.ascii_lowercase:
         current_combination = i + j
 
@@ -50,8 +50,8 @@ for i in arr:
                 deep_results,deep_counts = fetch_results(i + j + new_char)
                 rows.extend(results)
 
-        print(f"Completed {i}{j}, collected {len(rows)} words so far.")
+        print(f"Completed {i}{j},executed {execution_count} times and collected {total_count} words so far.")
 df=pd.DataFrame({"Words":rows})
-df.to_excel("output2.xlsx",index=False)
-print(f"Saved to output2.xlsx. Total words count: {total_count}")
+df.to_excel("output_v1.xlsx",index=False)
+print(f"Saved to output_v1.xlsx. Total words count: {total_count}. Total execution count :{execution_count}")
 
