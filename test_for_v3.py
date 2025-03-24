@@ -15,13 +15,13 @@ def fetch_results(query):
     global request_count,total_count
 
     response=requests.get(url+query,timeout=10)
-    request_count+=1
 
     if response.status_code==429:
         print("Limit Reached,Waiting...")
         time.sleep(60)
         return fetch_results(query)
     
+    request_count+=1
     data=response.json()
     results=data.get("results",[])
     count=data.get("count",0)
@@ -35,7 +35,7 @@ for i in arr:
         results,count=fetch_results(i+j)
         columns.append(pd.Series(results))
 
-        print(f"Completed {i}{j}, collected {sum(len(col) for col in columns)} words so far.")
+        print(f"Completed {i}{j},called {request_count} times, collected {total_count} words so far.")
 
 df=pd.concat(columns, axis=1, ignore_index=True)
 df.to_excel("output3.xlsx",index=False)
